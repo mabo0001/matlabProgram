@@ -1,0 +1,13 @@
+clear
+clc
+
+x0=[0,0.25,0.5,0.75,1.00];
+x=min(x):0.01:max(x);
+y0=[0.1,0.35,0.81,1.09,1.96];
+m=2;
+w=[1,1,1,1,1];
+[ a ] = multifit( x0,y0,m,w );
+y=zeros(size(x));
+for i=1:size(x,2)
+    y(i)=a(1)+a(2)*x(i)+a(3)*x(i)*x(i);
+end

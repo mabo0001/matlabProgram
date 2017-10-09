@@ -1,0 +1,17 @@
+%¶þ·Ö·¨
+clear
+clc
+a=1;
+b=1.5;
+e=(a+b)/2;
+while(e>0.0000000005)
+    if(F_target(a)*F_target(b)<0)
+        xk=(a+b)/2;
+        if(F_target(a)*F_target(xk)<0)
+            b=xk;
+        else
+            a=xk;
+        end
+    end
+    e=(b-a)/2;
+end
