@@ -1,0 +1,50 @@
+
+p = m;
+
+eledata1 =[];
+
+loop = 0;
+
+bb = 0;
+
+p1 =[];
+
+for i = 1:size(eledata,1)
+    
+    bb=0;
+    
+    for j = 1:4
+        
+        aa = (nodedata(eledata(i,j),1)>500); %||   nodedata(eledata(i,j),2)>1000   || nodedata(eledata(i,j),3)>1000);
+        
+        bb = bb+aa;
+        
+        if   bb == 4
+            loop =loop+1;
+            
+            eledata1(loop,:) =eledata(i,:);
+            
+            p1(loop)=p(i);
+            
+        end
+        
+    end    
+    
+end
+
+alpha =1;
+
+figure(1);clf;
+
+a = patch('Faces',eledata1(:,1:4),'Vertices',nodedata(:,1:3),'FaceAlpha',0.3,'FaceColor','flat','FaceVertexCData',p1','CDataMapping','scaled');
+a = patch('Faces',eledata(:,1:4),'Vertices',nodedata(:,1:3),'FaceAlpha',0.1,'FaceColor','flat','FaceVertexCData',p,'CDataMapping','scaled');
+
+axis image
+
+axis equal
+
+view(3);
+
+set(gca,'zdir','reverse')
+
+ figure;plot(Gij*p);

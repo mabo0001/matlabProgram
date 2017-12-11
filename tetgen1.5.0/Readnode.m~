@@ -1,0 +1,20 @@
+ function [nodedata]=Readnode(name)
+ 
+name = [name,'.node'];
+
+name = num2str
+fid = fopen('name','r');
+
+data = fscanf(fid,'%f ');
+
+fclose(fid);
+
+N = length(data);
+
+n = data(1)+1;
+
+m = N/n;
+
+data = reshape(data,m,n);
+
+data = data';

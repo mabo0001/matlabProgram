@@ -1,0 +1,4 @@
+function [data]=Readdata(name)
+fid=fopen('rec.1.node','r');
+data=fscanf(fid,'%f %f %f ',[4 inf]);
+fclose(fid);

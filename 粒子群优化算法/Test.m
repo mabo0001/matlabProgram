@@ -4,7 +4,7 @@ clc
 lambda=[50,200,10,500,300];
 rhos=mt1d(lambda);
 % 加误差
-% rhos=rhos+0.05.*(-1+2.*rand(size(rhos))).*rhos;
+rhos=rhos+0.05.*(-1+2.*rand(size(rhos))).*rhos;
 %       开始粒子群优化算法
 SwarmSize=200;
 Dimensionality=5;

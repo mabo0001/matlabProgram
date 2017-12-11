@@ -1,0 +1,5 @@
+tetramesh(eledata(20:50,:),nodedata);camorbit(20,0)
+view(3); axis tight; grid on;
+
+camlight; lighting phong
+grid off

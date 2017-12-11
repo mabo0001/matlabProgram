@@ -1,0 +1,49 @@
+clc;clear;
+tic;
+[nodedata,eledata,facedata,p] = Readdata('rec.1');
+
+i=0;
+
+N=size(eledata,1);
+
+for x=0:50:1000
+    
+    i=i+1
+    
+    j=0;
+    
+    for y = 0:50:1000
+        j=j+1;
+        
+        nodedata(:,1) = x-nodedata(:,1);
+        
+        nodedata(:,2) = y-nodedata(:,2);       
+                
+for ii=1:N
+[gravity(ii)]=ele_gravity(ii,5,p,eledata,nodedata);
+end
+
+V(i,j)=sum(gravity);
+
+[nodedata,eledata,facedata,p] = Readdata('rec.1');
+
+
+    end
+end
+figure;contourf(V')
+
+toc;
+a=zeros(441,1);
+l=0;
+[Vxy]=rectangular(0:50:1000,0:50:1000,500,500,200,200,300,700,1);
+for i = 1:21
+for j= 1:21
+l=l+1;
+a(l) = -V(i,j);
+end
+end
+figure;plot(a,'o')
+hold on
+plot(Vxy,'r')
+error = (a -Vxy);
+

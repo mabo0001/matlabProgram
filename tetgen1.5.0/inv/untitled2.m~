@@ -1,0 +1,24 @@
+for i=0:10
+    
+    A=Sim(i,0);
+    
+    for j=1:10
+        
+        A=[A,Sim(i,j)];  %hengxiang
+        
+    end
+    
+    dlmwrite(strcat('sim',num2str(i),'.txt'),A,'delimiter',' ');
+    
+end
+
+A=dmlread('sim0.txt');
+
+for i=1:10
+    
+    A=[A;dmlread(strcat('sim',num2str(i),'.txt'))];  %zongxiang
+        
+end
+        
+        dlmwrite('sim.txt',A,'delimiter',' ');
+        
