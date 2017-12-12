@@ -23,6 +23,8 @@ K=sk2k(sk,iw)
 
 %改进Cholesky分解解方程
 [ L_Cholesky,d_Cholesky,y_Cholesky,x_Cholesky ] = CholeskyOptimize( K,2*u' );
+% SOR解方程
+[ SOR_result ] = SOR(K,2*u',1.25 );
 
 %书上半带宽标准求解 解方程
 [p,ie ] = ldlt( sk,nd,iw,u );
