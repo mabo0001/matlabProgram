@@ -1,28 +1,39 @@
 clear
 clc
 %       做一次正演
-lambda=[10,100,500];
-LayerNumber=2;
+% lambda=[10,100,500];
+% LayerNumber=2;
+% x=0;
+% y=4000;
+% fmin=-8;
+% fmax=13;
+% fo=fmin:0.5:fmax;
+% f=2.^fo; 
+% rhos=WFEM_forward( lambda(1:LayerNumber),lambda(LayerNumber+1:end),x,y );
+% % 加误差
+% rhos=rhos+0.1.*(-1+2.*rand(size(rhos))).*rhos;
+
+load('f_rho_real.mat')
+f=f_rho_real(1,:);
+rhos=f_rho_real(2,:);
+
+LayerNumber=4;
 x=0;
-y=4000;
-fmin=-8;
-fmax=13;
-fo=fmin:0.5:fmax;
-f=2.^fo; 
-rhos=WFEM_forward( lambda(1:LayerNumber),lambda(LayerNumber+1:end),x,y );
-% 加误差
-rhos=rhos+0.1.*(-1+2.*rand(size(rhos))).*rhos;
+y=10000;
+
 %       开始粒子群优化算法
 SwarmSize=80;
 Dimensionality=2*LayerNumber-1;
-lambda_min=[0,50,450];
-lambda_max=[20,150,550];
+% lambda_min=[0,50,450];
+% lambda_max=[20,150,550];
+lambda_min=[50,50,400,800,1500,4500,6000];
+lambda_max=[150,220,750,1500,2000,5500,8000];
 Swarm=zeros(SwarmSize,Dimensionality);
 vactor=zeros(SwarmSize,Dimensionality);
 FitnessValue=zeros(SwarmSize,1);
 newFitnessValue=FitnessValue;
 % v_min=zeros(1,Dimensionality);
-v_max=[0.5,0.5,0.5];
+v_max=[0.5,0.5,0.5,0.5,0.5,0.5,0.5];
 v_min=-v_max;
 w=0.729;%惯性权重
 MaxW=0.95;
@@ -104,11 +115,11 @@ newFitnessValue(i,1)=CalculateFitnessValue( rhos,Swarm(i,:),LayerNumber,x,y );
         e(t) = F_target( rhos,optSwarmAll,LayerNumber ,x,y);
         disp(t)
         disp(e(end))
-        figure(1)
-        plot(e)
-%         title('目标函数变化曲线')
-        xlabel('Iteration number')
-        ylabel('The value of objective function')
+%         figure(1)
+%         plot(e)
+% %         title('目标函数变化曲线')
+%         xlabel('Iteration number')
+%         ylabel('The value of objective function')
         
         if(t>tmax)
             break;
@@ -119,13 +130,13 @@ end
 
 
 figure(2)
-semilogx(f,rhos,'b--','LineWidth',1.5);
+loglog(f,rhos,'b--','LineWidth',1.5);
 hold on
-rhos1=WFEM_forward( lambda(1:LayerNumber),lambda(LayerNumber+1:end),x,y );
-semilogx(f,rhos1,'g--','LineWidth',1.5);
+% rhos1=WFEM_forward( lambda(1:LayerNumber),lambda(LayerNumber+1:end),x,y );
+% semilogx(f,rhos1,'g--','LineWidth',1.5);
 index=find(e==min(e));
 rhos2=WFEM_forward( optSwarmAll(1:LayerNumber),optSwarmAll(LayerNumber+1:end),x,y );
-semilogx(f,rhos2,'r--','LineWidth',1.5)
+loglog(f,rhos2,'r--','LineWidth',1.5)
 % title('广域电磁法的遗传算法一维反演对比')
 xlabel('Frequency/Hz')
 ylabel('\rho_a/(\Omega·m)')

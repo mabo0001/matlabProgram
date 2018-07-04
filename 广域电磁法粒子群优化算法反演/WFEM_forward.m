@@ -15,10 +15,13 @@ y=yy;
 I = 10;                             %供电电流
 DL = 1e3;                           %AB极长度(米)
 PE = I * DL / 2 / pi;
-fmin=-8;
-fmax=13;
-fo=fmin:0.5:fmax;
-f=2.^fo;                             %频率系列
+% fmin=-8;
+% fmax=13;
+% fo=fmin:0.5:fmax;
+% f=2.^fo;                             %频率系列
+
+load('f_rho_real.mat')
+f=f_rho_real(1,:);
 
 [ex,hy,rho,rho_r,phase,ex0,ex2]=CSAMT_forward(rho_i,h_i,x,y,f,PE);        %进行CSAMT正演
 %%
